@@ -16,12 +16,15 @@ class conf:
     empty_data = {
         "name": "unknown",
         "editor": "unknown",
-        "buy": False,
-        "borrow": False,
-        "library": False,
+        "acquire": "Bought",
         "like": False,
         "forced": False,
         "delegate": "unknown",
         "progress": 0,
         "pages": 100
     }
+    acquire_opts = [
+        "Bought",
+        "Borrowed",
+        "Library"
+    ]

@@ -36,21 +36,7 @@ class Book:
                             self.pages_m = wui.Button(
                                 text="-", on_click=self.pages_minus, **wui.INVISIBLE, font_size=conf.pm_fs, parent_anchor="center")
                         with wui.HCont(margin=0, **wui.INVISIBLE):
-                            wui.Label(text="Bought: ")
-                            self.buy_c = wui.Checkbox(
-                                size=(30, 30), on_toggle=self.buy_change)
-                            if self.data["buy"]:
-                                self.buy_c.status.select()
-                            wui.Label(text="Borrowed: ")
-                            self.borrow_c = wui.Checkbox(
-                                size=(30, 30), on_toggle=self.borrow_change)
-                            if self.data["borrow"]:
-                                self.borrow_c.status.select()
-                            wui.Label(text="Library: ")
-                            self.library_c = wui.Checkbox(
-                                size=(30, 30), on_toggle=self.library_change)
-                            if self.data["library"]:
-                                self.library_c.status.select()
+                            self.acquire_dropdown = wui.DropMenu(options=conf.acquire_opts, selected_option=data["acquire"], min_max_width=conf.w//5, on_select=self.acquire_change)
                             wui.Label(text="Liked: ")
                             self.like_c = wui.Checkbox(
                                 size=(30, 30), on_toggle=self.like_change)
@@ -73,7 +59,7 @@ class Book:
                 delete_btn = wui.Button(background_image=self.app.main.bin_img,
                                         on_click=self.delete, **wui.Themes.RED, size=(40, 40), background_padding=5)
                 wui.ext.HoverGrowAnimation(delete_btn, self.app.main.bin_img)
-
+        
         self.update_outline()
 
     def get_data(self): return self.data
@@ -92,12 +78,8 @@ class Book:
     def delegate_change(
         self, e): self.data["delegate"] = self.delegate_entry.text
 
-    def buy_change(self, e): self.data["buy"] = self.buy_c.status.selected
-
-    def borrow_change(
-        self, e): self.data["borrow"] = self.borrow_c.status.selected
-    def library_change(
-        self, e): self.data["library"] = self.library_c.status.selected
+    def acquire_change(self, option):
+        self.data["acquire"] = option
 
     def like_change(self, e): self.data["like"] = self.like_c.status.selected
 
@@ -108,6 +90,7 @@ class Book:
         self.data["progress"] = int(
             self.progress_entry.text) if self.progress_entry.text.isdecimal() else self.data["progress"]
         self.update_outline()
+        self.clamp_progress()
 
     def pages_change(self, e):
         self.data["pages"] = int(
