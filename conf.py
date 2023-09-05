@@ -26,5 +26,6 @@ class conf:
     acquire_opts = [
         "Bought",
         "Borrowed",
-        "Library"
+        "Library",
+        "Gift"
     ]

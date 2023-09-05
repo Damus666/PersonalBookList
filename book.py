@@ -51,7 +51,7 @@ class Book:
                             wui.Label(text="Delegator: ")
                             self.delegate_entry = wui.Entryline(
                                 text=data["delegate"], width=conf.w//6, on_change=self.delegate_change)
-                            wui.Label(text="Editor: ")
+                            wui.Label(text="Author: ")
                             self.editor_entry = wui.Entryline(
                                 text=data["editor"], width=conf.w//6, on_change=self.editor_change)
                         self.hide_btn = wui.Button(
